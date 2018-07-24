@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_Settings
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_Settings extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,8 +16,7 @@ class WP_EXT_Meta_Settings extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		// Register network theme directory.
 		register_theme_directory( ABSPATH . 'wp-network/themes' );
@@ -54,8 +51,7 @@ class WP_EXT_Meta_Settings extends WP_EXT_Meta {
 	 * @param $src
 	 *
 	 * @return string
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function remove_version( $src ) {
 		if ( strpos( $src, 'ver=' ) ) {
 			$src = remove_query_arg( 'ver', $src );
@@ -68,8 +64,7 @@ class WP_EXT_Meta_Settings extends WP_EXT_Meta {
 	 * Remove WP admin logo.
 	 *
 	 * @param $wp_admin_bar
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function remove_wp_logo( $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'wp-logo' );
 	}
@@ -79,8 +74,7 @@ class WP_EXT_Meta_Settings extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_Settings
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_Settings() {
 	static $object;
 
@@ -93,6 +87,5 @@ function WP_EXT_Meta_Settings() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_Settings(), 'run' ] );

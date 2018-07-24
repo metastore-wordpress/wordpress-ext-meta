@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_Author
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_Author extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,16 +16,14 @@ class WP_EXT_Meta_Author extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		add_action( 'init', [ $this, 'author_link' ] );
 	}
 
 	/**
 	 * Author page rewrite.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function author_link() {
 		global $wp_rewrite;
 
@@ -40,8 +36,7 @@ class WP_EXT_Meta_Author extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_Author
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_Author() {
 	static $object;
 
@@ -54,6 +49,5 @@ function WP_EXT_Meta_Author() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_Author(), 'run' ] );

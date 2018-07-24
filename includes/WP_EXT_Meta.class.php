@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		// Languages.
 		self::languages();
@@ -20,15 +18,13 @@ class WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 	}
 
 	/**
 	 * Plugin: `languages`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function languages() {
 		load_plugin_textdomain(
 			'wp-ext-meta',
@@ -43,8 +39,7 @@ class WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta() {
 	static $object;
 
@@ -57,6 +52,5 @@ function WP_EXT_Meta() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta(), 'run' ] );

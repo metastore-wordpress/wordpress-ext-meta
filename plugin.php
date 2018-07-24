@@ -19,7 +19,7 @@
 
 /**
  * Loading `WP_EXT_Meta`.
- * ------------------------------------------------------------------------------------------------------------------ */
+ */
 
 function run_wp_ext_system_meta() {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/WP_EXT_Meta.class.php' );

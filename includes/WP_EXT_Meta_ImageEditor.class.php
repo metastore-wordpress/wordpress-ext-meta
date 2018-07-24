@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_ImageEditor
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_ImageEditor extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,8 +16,7 @@ class WP_EXT_Meta_ImageEditor extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		add_filter( 'wp_image_editors', [ $this, 'image_library' ] );
 	}
@@ -28,8 +25,7 @@ class WP_EXT_Meta_ImageEditor extends WP_EXT_Meta {
 	 * Force use of ImageMagick image library.
 	 *
 	 * @return array
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function image_library() {
 		return array( 'WP_Image_Editor_Imagick' );
 	}
@@ -39,8 +35,7 @@ class WP_EXT_Meta_ImageEditor extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_ImageEditor
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_ImageEditor() {
 	static $object;
 
@@ -53,6 +48,5 @@ function WP_EXT_Meta_ImageEditor() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_ImageEditor(), 'run' ] );

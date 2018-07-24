@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_FileUploader
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_FileUploader extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,8 +16,7 @@ class WP_EXT_Meta_FileUploader extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'file' ], 1, 1 );
 	}
@@ -30,8 +27,7 @@ class WP_EXT_Meta_FileUploader extends WP_EXT_Meta {
 	 * @param $file
 	 *
 	 * @return mixed
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function file( $file ) {
 		$file_info = pathinfo( $file['name'] );
 		$file_ext  = empty( $file_info['extension'] ) ? '' : '.' . $file_info['extension'];
@@ -47,8 +43,7 @@ class WP_EXT_Meta_FileUploader extends WP_EXT_Meta {
 	 * Hash generator.
 	 *
 	 * @return string
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function hash() {
 		$hash = hash( 'crc32b', date( 'Y-m-d.H-i-s' ) . md5( uniqid( mt_rand(), true ) ) );
 
@@ -60,8 +55,7 @@ class WP_EXT_Meta_FileUploader extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_FileUploader
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_FileUploader() {
 	static $object;
 
@@ -74,6 +68,5 @@ function WP_EXT_Meta_FileUploader() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_FileUploader(), 'run' ] );

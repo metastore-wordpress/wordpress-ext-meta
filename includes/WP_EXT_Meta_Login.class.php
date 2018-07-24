@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_Login
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_Login extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,8 +16,7 @@ class WP_EXT_Meta_Login extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		add_filter( 'login_headerurl', [ $this, 'login_logo_url' ] );
 		add_filter( 'login_headertitle', [ $this, 'login_logo_title' ] );
@@ -29,8 +26,7 @@ class WP_EXT_Meta_Login extends WP_EXT_Meta {
 
 	/**
 	 * Login logo URL.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function login_logo_url( $url ) {
 		$out = home_url();
 
@@ -39,8 +35,7 @@ class WP_EXT_Meta_Login extends WP_EXT_Meta {
 
 	/**
 	 * Login logo title.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function login_logo_title() {
 		$out = esc_attr( get_bloginfo( 'name' ) );
 
@@ -49,8 +44,7 @@ class WP_EXT_Meta_Login extends WP_EXT_Meta {
 
 	/**
 	 * Login styles.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function login_styles() {
 		wp_enqueue_style( 'ext-plugin-meta', plugins_url( 'themes/styles/theme.css', __DIR__ ), [], '' );
 	}
@@ -60,8 +54,7 @@ class WP_EXT_Meta_Login extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_Login
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_Login() {
 	static $object;
 
@@ -74,6 +67,5 @@ function WP_EXT_Meta_Login() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_Login(), 'run' ] );

@@ -2,14 +2,12 @@
 
 /**
  * Class WP_EXT_Meta_Attachment
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_Attachment extends WP_EXT_Meta {
 
 	/**
 	 * Constructor.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -18,8 +16,7 @@ class WP_EXT_Meta_Attachment extends WP_EXT_Meta {
 
 	/**
 	 * Plugin: `initialize`.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function run() {
 		add_action( 'template_redirect', [ $this, 'attachment_redirect' ] );
 	}
@@ -28,8 +25,7 @@ class WP_EXT_Meta_Attachment extends WP_EXT_Meta {
 	 * Attachment pages redirect.
 	 *
 	 * @param int $id
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function attachment_redirect( $id = 0 ) {
 		if ( ! defined( 'ATTACHMENT_REDIRECT_CODE' ) ) {
 			define( 'ATTACHMENT_REDIRECT_CODE', '301' );
@@ -63,8 +59,7 @@ class WP_EXT_Meta_Attachment extends WP_EXT_Meta {
  * Helper function to retrieve the static object without using globals.
  *
  * @return WP_EXT_Meta_Attachment
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 function WP_EXT_Meta_Attachment() {
 	static $object;
 
@@ -77,6 +72,5 @@ function WP_EXT_Meta_Attachment() {
 
 /**
  * Initialize the object on `plugins_loaded`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_action( 'plugins_loaded', [ WP_EXT_Meta_Attachment(), 'run' ] );

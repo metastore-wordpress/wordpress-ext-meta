@@ -4,14 +4,12 @@
  * Class WP_EXT_Meta_TransCache
  *
  * @see https://github.com/pressjitsu/pomodoro
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 class WP_EXT_Meta_TransCache {
 
 	/**
 	 * Private state.
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	private $domain = null;
 	private $cache = array();
 	private $busted = false;
@@ -25,8 +23,7 @@ class WP_EXT_Meta_TransCache {
 	 * @param $mofile
 	 * @param $domain
 	 * @param $override
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function __construct( $mofile, $domain, $override ) {
 		$this->mofile   = apply_filters( 'load_textdomain_mofile', $mofile, $domain );
 		$this->domain   = $domain;
@@ -44,14 +41,12 @@ class WP_EXT_Meta_TransCache {
 			 *
 			 * OPcache will grab the values from memory.
 			 * ------------------------------------------------------------------------------------------------------ */
-
 			include $cache_file;
 			$this->cache = &$_cache;
 
 			/**
 			 * Mofile has been modified, invalidate it all.
 			 * ------------------------------------------------------------------------------------------------------ */
-
 			if ( ! isset( $_mtime ) || ( isset( $_mtime ) && $_mtime < $mtime ) ) {
 				$this->cache = array();
 			}
@@ -63,8 +58,7 @@ class WP_EXT_Meta_TransCache {
 
 			/**
 			 * New values have been found. Dump everything into a valid PHP script.
-			 * ---------------------------------------------------------------------------------------------------------- */
-
+			 */
 			if ( $this->busted ) {
 				file_put_contents( $cache_file, sprintf( '<?php $_mtime = %d; $_cache = %s;', $mtime, var_export( $_this->cache, true ) ), LOCK_EX );
 			}
@@ -84,8 +78,7 @@ class WP_EXT_Meta_TransCache {
 
 		/**
 		 * Check cache first.
-		 * ---------------------------------------------------------------------------------------------------------- */
-
+		 */
 		if ( isset( $this->cache[ $cache_key ] ) ) {
 			return $this->cache[ $cache_key ];
 		}
@@ -94,8 +87,7 @@ class WP_EXT_Meta_TransCache {
 
 		/**
 		 * Merge overrides.
-		 * ---------------------------------------------------------------------------------------------------------- */
-
+		 */
 		if ( $this->override ) {
 			if ( ( $translation = call_user_func_array( array(
 					$this->override,
@@ -109,8 +101,7 @@ class WP_EXT_Meta_TransCache {
 
 		/**
 		 * Default Mo upstream.
-		 * ---------------------------------------------------------------------------------------------------------- */
-
+		 */
 		if ( ! $this->upstream ) {
 			$this->upstream = new Mo();
 			do_action( 'load_textdomain', $this->domain, $this->mofile );
@@ -139,8 +130,7 @@ class WP_EXT_Meta_TransCache {
 	 * @param null $context
 	 *
 	 * @return mixed
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function translate( $text, $context = null ) {
 		return $this->get_translation( $this->cache_key( func_get_args() ), $text, func_get_args() );
 	}
@@ -154,8 +144,7 @@ class WP_EXT_Meta_TransCache {
 	 * @param null $context
 	 *
 	 * @return mixed
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	public function translate_plural( $singular, $plural, $count, $context = null ) {
 		$text = ( abs( $count ) == 1 ) ? $singular : $plural;
 
@@ -168,8 +157,7 @@ class WP_EXT_Meta_TransCache {
 	 * @param $args
 	 *
 	 * @return string
-	 * -------------------------------------------------------------------------------------------------------------- */
-
+	 */
 	private function cache_key( $args ) {
 		return md5( serialize( array( $args, $this->domain ) ) );
 	}
@@ -177,8 +165,7 @@ class WP_EXT_Meta_TransCache {
 
 /**
  * Override `textdomain`.
- * ------------------------------------------------------------------------------------------------------------------ */
-
+ */
 add_filter( 'override_load_textdomain', function ( $plugin_override, $domain, $mofile ) {
 	if ( ! is_readable( $mofile ) ) {
 		return false;
